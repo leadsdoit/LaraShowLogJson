@@ -9,11 +9,7 @@ use Ldi\LogViewer\Entities\LogEntryCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-/**
- * Interface  LogViewer
- *
- * @author    ARCANEDEV <arcanedev.maroc@gmail.com>
- */
+
 interface LogViewer extends Patternable
 {
     /**

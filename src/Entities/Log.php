@@ -9,11 +9,7 @@ use Illuminate\Support\Carbon;
 use JsonSerializable;
 use SplFileInfo;
 
-/**
- * Class     Log
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
+
 class Log implements Arrayable, Jsonable, JsonSerializable
 {
     /* -----------------------------------------------------------------

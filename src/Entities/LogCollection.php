@@ -9,11 +9,6 @@ use Ldi\LogViewer\Exceptions\LogNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\LazyCollection;
 
-/**
- * Class     LogCollection
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
 class LogCollection extends LazyCollection
 {
     /* -----------------------------------------------------------------

@@ -7,11 +7,6 @@ namespace Ldi\LogViewer\Http\Routes;
 use Ldi\LogViewer\Http\Controllers\LogViewerController;
 use  support\Routing\RouteRegistrar;
 
-/**
- * Class     LogViewerRoute
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
 class LogViewerRoute extends RouteRegistrar
 {
     /**

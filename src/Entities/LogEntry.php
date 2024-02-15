@@ -9,11 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\{Arrayable, Jsonable};
 use JsonSerializable;
 
-/**
- * Class     LogEntry
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
+
 class LogEntry implements Arrayable, Jsonable, JsonSerializable
 {
     /* -----------------------------------------------------------------
@@ -178,7 +174,7 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
      */
     public function icon()
     {
-        return log_styler()->icon($this->level);
+//        return log_styler()->icon($this->level);
     }
 
     /**

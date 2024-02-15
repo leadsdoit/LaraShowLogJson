@@ -15,11 +15,6 @@ use  support\Providers\Concerns\HasFactories;
 use  support\Providers\Concerns\HasTranslations;
 use  support\Providers\Concerns\HasViews;
 
-/**
- * Class     PackageServiceProvider
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
 abstract class PackageServiceProvider extends ServiceProvider
 {
     /* -----------------------------------------------------------------
@@ -44,7 +39,7 @@ abstract class PackageServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $vendor = 'arcanedev';
+    protected $vendor = 'ldi';
 
     /**
      * Package name.

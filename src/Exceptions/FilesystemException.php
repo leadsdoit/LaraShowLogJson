@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Exceptions;
 
-/**
- * Class     FilesystemException
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
+
 class FilesystemException extends LogViewerException
 {
     public static function cannotDeleteLog()

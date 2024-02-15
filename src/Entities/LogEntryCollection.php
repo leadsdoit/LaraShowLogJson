@@ -8,11 +8,7 @@ use Ldi\LogViewer\Helpers\LogParser;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\LazyCollection;
 
-/**
- * Class     LogEntryCollection
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
+
 class LogEntryCollection extends LazyCollection
 {
     /* -----------------------------------------------------------------
