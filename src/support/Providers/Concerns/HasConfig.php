@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace support\Providers\Concerns;
 
-use Arcanedev\Support\Providers\Concerns\phpStr;
 use Illuminate\Support\Str;
-use const Arcanedev\Support\Providers\Concerns\HasConfig;
 
 /**
  * Trait     HasConfig
@@ -52,10 +50,11 @@ trait HasConfig
      */
     protected function getConfigKey(bool $withVendor = false, string $separator = '.'): string
     {
+
         $package = Str::slug($this->getPackageName());
 
         return $withVendor
-            ? HasConfig . phpStr::slug($this->getVendorName()) . $separator .$package
+            ? Str::slug($this->getVendorName()).$separator.$package
             : $package;
     }
 
