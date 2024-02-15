@@ -20,6 +20,7 @@
         "orchestra/testbench-core": "^7.0",
         "phpunit/phpunit": "^9.5.10"
     },
+    "license": "proprietary",
     "extra": {
         "laravel": {
             "providers": [
