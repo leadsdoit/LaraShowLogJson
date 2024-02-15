@@ -27,5 +27,7 @@
                 "Ldi\\LogViewer\\Providers\\DeferredServicesProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
