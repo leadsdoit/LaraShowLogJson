@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ldi\LogViewer\Commands;
 
 use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
-use support\Console\Command as BaseCommand;
+use src\Console\Command as BaseCommand;
 
 abstract class Command extends BaseCommand
 {

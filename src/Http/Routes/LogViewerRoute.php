@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ldi\LogViewer\Http\Routes;
 
 use Ldi\LogViewer\Http\Controllers\LogViewerController;
-use  support\Routing\RouteRegistrar;
+use src\Routing\RouteRegistrar;
 
 class LogViewerRoute extends RouteRegistrar
 {
