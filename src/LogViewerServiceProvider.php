@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer;
 
-use src\Providers\PackageServiceProvider;
+use Ldi\Support\Providers\PackageServiceProvider;
 
 class LogViewerServiceProvider extends PackageServiceProvider
 {
