@@ -12,7 +12,7 @@ use Ldi\LogViewer\Contracts\Utilities\LogChecker as LogCheckerContract;
 use Ldi\LogViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
 use Ldi\LogViewer\LogViewer;
 use Ldi\LogViewer\Utilities;
-use src\Providers\ServiceProvider;
+use Ldi\Support\Providers\ServiceProvider;
 
 /**
  * Class     DeferredServicesProvider
