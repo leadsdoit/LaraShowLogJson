@@ -1,0 +1,31 @@
+{
+    "name": "ldi/log-viewer",
+    "description": "Provides data of the log files in json format",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Ldi\\LogViewer\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*",
+        "arcanedev/support": "^9.0",
+        "psr/log": "^1.0|^2.0|^3.0",
+        "arcanedev/log-viewer": "^9.0"
+    },
+    "require-dev": {
+        "laravel/framework": "^9.0",
+        "mockery/mockery": "^1.4.4",
+        "orchestra/testbench-core": "^7.0",
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ldi\\LogViewer\\LogViewerServiceProvider",
+                "Ldi\\LogViewer\\Providers\\DeferredServicesProvider"
+            ]
+        }
+    }
+}
