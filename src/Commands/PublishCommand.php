@@ -29,7 +29,6 @@ class PublishCommand extends Command
 
         $args['--tag'] = [$this->option('tag')];
 
-        $this->displayLogViewer();
         $this->call('vendor:publish', $args);
 
         return static::SUCCESS;

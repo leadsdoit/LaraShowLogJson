@@ -11,25 +11,9 @@ use Illuminate\Support\LazyCollection;
 
 class LogCollection extends LazyCollection
 {
-    /* -----------------------------------------------------------------
-     |  Properties
-     | -----------------------------------------------------------------
-     */
+    private FilesystemContract $filesystem;
 
-    /** @var \Ldi\LogViewer\Contracts\Utilities\Filesystem */
-    private $filesystem;
-
-    /* -----------------------------------------------------------------
-     |  Constructor
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * LogCollection constructor.
-     *
-     * @param  mixed  $source
-     */
-    public function __construct($source = null)
+    public function __construct(mixed $source = null)
     {
         $this->setFilesystem(app(FilesystemContract::class));
 
@@ -43,29 +27,12 @@ class LogCollection extends LazyCollection
         parent::__construct($source);
     }
 
-    /* -----------------------------------------------------------------
-     |  Getters & Setters
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Set the filesystem instance.
-     *
-     * @param  \Ldi\LogViewer\Contracts\Utilities\Filesystem  $filesystem
-     *
-     * @return \Ldi\LogViewer\Entities\LogCollection
-     */
-    public function setFilesystem(FilesystemContract $filesystem)
+    public function setFilesystem(FilesystemContract $filesystem): LogCollection
     {
         $this->filesystem = $filesystem;
 
         return $this;
     }
-
-    /* -----------------------------------------------------------------
-     |  Main Methods
-     | -----------------------------------------------------------------
-     */
 
     /**
      * Get a log.
@@ -73,26 +40,20 @@ class LogCollection extends LazyCollection
      * @param  string      $date
      * @param  mixed|null  $default
      *
-     * @return \Ldi\LogViewer\Entities\Log
+     * @return Log
      *
      * @throws \Ldi\LogViewer\Exceptions\LogNotFoundException
      */
-    public function get($date, $default = null)
+    public function get($key, $default = null): Log
     {
-        if ( ! $this->has($date))
-            throw LogNotFoundException::make($date);
+        if ( ! $this->has($key)) {
+            throw LogNotFoundException::make($key ?? '');
+        }
 
-        return parent::get($date, $default);
+        return parent::get($key, $default);
     }
 
-    /**
-     * Paginate logs.
-     *
-     * @param  int  $perPage
-     *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
-    public function paginate($perPage = 30)
+    public function paginate(int $perPage = 30): LengthAwarePaginator
     {
         $page = request()->get('page', 1);
         $path = request()->url();
@@ -106,93 +67,39 @@ class LogCollection extends LazyCollection
         );
     }
 
-    /**
-     * Get a log (alias).
-     *
-     * @see get()
-     *
-     * @param  string  $date
-     *
-     * @return \Ldi\LogViewer\Entities\Log
-     */
-    public function log($date)
+    public function log(string $date): Log
     {
         return $this->get($date);
     }
 
-
-    /**
-     * Get log entries.
-     *
-     * @param  string  $date
-     * @param  string  $level
-     *
-     * @return \Ldi\LogViewer\Entities\LogEntryCollection
-     */
-    public function entries($date, $level = 'all')
+    public function entries(string $date, string $level = 'all'): LogEntryCollection
     {
         return $this->get($date)->entries($level);
     }
 
-
-
-    /**
-     * Get logs statistics.
-     *
-     * @return array
-     */
-    public function stats()
+    /* @using */
+    public function stats(): array
     {
         $stats = [];
 
         foreach ($this->all() as $date => $log) {
-            /** @var \Ldi\LogViewer\Entities\Log $log */
+            /** @var Log $log */
             $stats[$date] = $log->stats();
         }
 
         return $stats;
     }
 
-    /**
-     * List the log files (dates).
-     *
-     * @return array
-     */
-    public function dates()
+    public function dates(): array
     {
         return $this->keys()->toArray();
     }
 
-    /**
-     * Get entries total.
-     *
-     * @param  string  $level
-     *
-     * @return int
-     */
-    public function total($level = 'all')
+    public function total(string $level = 'all'):  int
     {
         return (int) $this->sum(function (Log $log) use ($level) {
             return $log->entries($level)->count();
         });
     }
 
-    /**
-     * Get logs tree.
-     *
-     * @param  bool  $trans
-     *
-     * @return array
-     */
-    public function tree($trans = false)
-    {
-        $tree = [];
-
-        foreach ($this->all() as $date => $log) {
-            /** @var \Ldi\LogViewer\Entities\Log $log */
-            $tree[$date] = $log->tree($trans);
-        }
-
-        return $tree;
-    }
 }

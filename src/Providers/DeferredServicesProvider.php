@@ -14,21 +14,8 @@ use Ldi\LogViewer\LogViewer;
 use Ldi\LogViewer\Utilities;
 use Ldi\Support\Providers\ServiceProvider;
 
-/**
- * Class     DeferredServicesProvider
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
 class DeferredServicesProvider extends ServiceProvider implements DeferrableProvider
 {
-    /* -----------------------------------------------------------------
-     |  Main Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Register the service provider.
-     */
     public function register(): void
     {
         $this->registerLogViewer();
@@ -38,11 +25,6 @@ class DeferredServicesProvider extends ServiceProvider implements DeferrableProv
         $this->registerChecker();
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
     public function provides(): array
     {
         return [
@@ -54,22 +36,11 @@ class DeferredServicesProvider extends ServiceProvider implements DeferrableProv
         ];
     }
 
-    /* -----------------------------------------------------------------
-     |  LogViewer Utilities
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Register the log viewer service.
-     */
     private function registerLogViewer(): void
     {
         $this->singleton(LogViewerContract::class, LogViewer::class);
     }
 
-    /**
-     * Register the log levels.
-     */
     private function registerLogLevels(): void
     {
         $this->singleton(LogLevelsContract::class, function ($app) {
@@ -80,9 +51,6 @@ class DeferredServicesProvider extends ServiceProvider implements DeferrableProv
         });
     }
 
-    /**
-     * Register the log filesystem.
-     */
     private function registerFilesystem(): void
     {
         $this->singleton(FilesystemContract::class, function ($app) {
@@ -98,17 +66,11 @@ class DeferredServicesProvider extends ServiceProvider implements DeferrableProv
         });
     }
 
-    /**
-     * Register the log factory class.
-     */
     private function registerFactory(): void
     {
         $this->singleton(FactoryContract::class, Utilities\Factory::class);
     }
 
-    /**
-     * Register the log checker service.
-     */
     private function registerChecker(): void
     {
         $this->singleton(LogCheckerContract::class, Utilities\LogChecker::class);

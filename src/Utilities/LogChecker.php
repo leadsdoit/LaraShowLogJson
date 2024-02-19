@@ -10,64 +10,18 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 class LogChecker implements LogCheckerContract
 {
-    /* -----------------------------------------------------------------
-     |  Properties
-     | -----------------------------------------------------------------
-     */
+    private ConfigContract $config;
 
-    /**
-     * The config repository instance.
-     *
-     * @var \Illuminate\Contracts\Config\Repository
-     */
-    private $config;
+    private FilesystemContract $filesystem;
 
-    /**
-     * The filesystem instance.
-     *
-     * @var \Ldi\LogViewer\Contracts\Utilities\Filesystem
-     */
-    private $filesystem;
+    protected string $handler = '';
 
-    /**
-     * Log handler mode.
-     *
-     * @var string
-     */
-    protected $handler = '';
+    private bool $status = true;
 
-    /**
-     * The check status.
-     *
-     * @var bool
-     */
-    private $status = true;
+    private array $messages;
 
-    /**
-     * The check messages.
-     *
-     * @var array
-     */
-    private $messages;
+    private array $files = [];
 
-    /**
-     * Log files statuses.
-     *
-     * @var array
-     */
-    private $files = [];
-
-    /* -----------------------------------------------------------------
-     |  Constructor
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * LogChecker constructor.
-     *
-     * @param  \Illuminate\Contracts\Config\Repository              $config
-     * @param  \Ldi\LogViewer\Contracts\Utilities\Filesystem  $filesystem
-     */
     public function __construct(ConfigContract $config, FilesystemContract $filesystem)
     {
         $this->setConfig($config);
@@ -75,18 +29,6 @@ class LogChecker implements LogCheckerContract
         $this->refresh();
     }
 
-    /* -----------------------------------------------------------------
-     |  Getters & Setters
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Set the config instance.
-     *
-     * @param  \Illuminate\Contracts\Config\Repository  $config
-     *
-     * @return self
-     */
     public function setConfig(ConfigContract $config): self
     {
         $this->config = $config;
@@ -94,13 +36,6 @@ class LogChecker implements LogCheckerContract
         return $this;
     }
 
-    /**
-     * Set the Filesystem instance.
-     *
-     * @param  \Ldi\LogViewer\Contracts\Utilities\Filesystem  $filesystem
-     *
-     * @return self
-     */
     public function setFilesystem(FilesystemContract $filesystem): self
     {
         $this->filesystem = $filesystem;
@@ -108,13 +43,6 @@ class LogChecker implements LogCheckerContract
         return $this;
     }
 
-    /**
-     * Set the log handler mode.
-     *
-     * @param  string  $handler
-     *
-     * @return self
-     */
     protected function setHandler($handler): self
     {
         $this->handler = strtolower($handler);
@@ -122,16 +50,6 @@ class LogChecker implements LogCheckerContract
         return $this;
     }
 
-    /* -----------------------------------------------------------------
-     |  Main Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Get messages.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         $this->refresh();
@@ -139,11 +57,6 @@ class LogChecker implements LogCheckerContract
         return $this->messages;
     }
 
-    /**
-     * Check if the checker passes.
-     *
-     * @return bool
-     */
     public function passes(): bool
     {
         $this->refresh();
@@ -151,21 +64,11 @@ class LogChecker implements LogCheckerContract
         return $this->status;
     }
 
-    /**
-     * Check if the checker fails.
-     *
-     * @return bool
-     */
     public function fails(): bool
     {
         return ! $this->passes();
     }
 
-    /**
-     * Get the requirements.
-     *
-     * @return array
-     */
     public function requirements(): array
     {
         $this->refresh();
@@ -181,43 +84,16 @@ class LogChecker implements LogCheckerContract
         ];
     }
 
-    /* -----------------------------------------------------------------
-     |  Check Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Is a daily handler mode ?
-     *
-     * @return bool
-     */
     protected function isDaily(): bool
     {
         return $this->isSameHandler(self::HANDLER_DAILY);
     }
 
-    /**
-     * Is the handler is the same as the application log handler.
-     *
-     * @param  string  $handler
-     *
-     * @return bool
-     */
     private function isSameHandler(string $handler): bool
     {
         return $this->handler === $handler;
     }
 
-    /* -----------------------------------------------------------------
-     |  Other Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Refresh the checks.
-     *
-     * @return \Ldi\LogViewer\Utilities\LogChecker
-     */
     private function refresh(): self
     {
         $this->setHandler($this->config->get('logging.default', 'stack'));
@@ -234,19 +110,13 @@ class LogChecker implements LogCheckerContract
         return $this;
     }
 
-    /**
-     * Check the handler mode.
-     */
     private function checkHandler(): void
     {
         if ($this->isDaily()) return;
 
-        $this->messages['handler'] = 'You should set the log handler to `daily` mode. Please check the LogViewer wiki page (Requirements) for more details.';
+        $this->messages['handler'] = 'You should set the log handler to `daily` mode.';
     }
 
-    /**
-     * Check all log files.
-     */
     private function checkLogFiles(): void
     {
         foreach ($this->filesystem->all() as $path) {
@@ -254,11 +124,6 @@ class LogChecker implements LogCheckerContract
         }
     }
 
-    /**
-     * Check a log file.
-     *
-     * @param  string  $path
-     */
     private function checkLogFile(string $path): void
     {
         $status   = true;
@@ -280,26 +145,11 @@ class LogChecker implements LogCheckerContract
         $this->files[$filename] = compact('filename', 'status', 'message', 'path');
     }
 
-    /**
-     * Check if it's not a single log file.
-     *
-     * @param  string  $file
-     *
-     * @return bool
-     */
     private function isSingleLogFile(string $file): bool
     {
         return $file === 'laravel.log';
     }
 
-    /**
-     * Check the date of the log file.
-     *
-     * @param  string  $file
-     * @param  string  $pattern
-     *
-     * @return bool
-     */
     private function isInvalidLogPattern(string $file, string $pattern): bool
     {
         return ((bool) preg_match("/{$pattern}/", $file, $matches)) === false;

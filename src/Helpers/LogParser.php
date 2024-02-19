@@ -7,26 +7,13 @@ namespace Ldi\LogViewer\Helpers;
 use Ldi\LogViewer\Utilities\LogLevels;
 use Illuminate\Support\Str;
 
-/**
- * Class     LogParser
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
 class LogParser
 {
-    /* -----------------------------------------------------------------
-     |  Constants
-     | -----------------------------------------------------------------
-     */
 
     const REGEX_DATE_PATTERN     = '\d{4}(-\d{2}){2}';
     const REGEX_TIME_PATTERN     = '\d{2}(:\d{2}){2}';
     const REGEX_DATETIME_PATTERN = self::REGEX_DATE_PATTERN.' '.self::REGEX_TIME_PATTERN;
 
-    /* -----------------------------------------------------------------
-     |  Properties
-     | -----------------------------------------------------------------
-     */
 
     /**
      * Parsed data.

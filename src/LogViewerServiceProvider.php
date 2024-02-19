@@ -49,12 +49,9 @@ class LogViewerServiceProvider extends PackageServiceProvider
     public function boot(): void
     {
         $this->loadTranslations();
-        $this->loadViews();
-
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
             $this->publishTranslations();
-            $this->publishViews();
         }
     }
 }

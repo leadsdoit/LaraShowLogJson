@@ -11,48 +11,28 @@ class CheckCommand extends Command
 {
     protected $name = 'log-viewer:check';
 
-    protected $description = 'Check all LogViewer requirements.';
+    protected $description = 'Check package requirements.';
 
     protected $signature = 'log-viewer:check';
 
-    /**
-     * Get the Log Checker instance.
-     */
     protected function getChecker(): LogChecker
     {
         return $this->laravel[LogCheckerContract::class];
     }
 
-    /* -----------------------------------------------------------------
-     |  Main Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Execute the console command.
-     */
     public function handle(): int
     {
-        $this->displayLogViewer();
         $this->displayRequirements();
         $this->displayMessages();
 
         return static::SUCCESS;
     }
 
-    /* -----------------------------------------------------------------
-     |  Other Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Display LogViewer requirements.
-     */
-    private function displayRequirements()
+    private function displayRequirements(): void
     {
         $requirements = $this->getChecker()->requirements();
 
-        $this->frame('Application requirements');
+        $this->frame('Package requirements');
 
         $this->table([
             'Status', 'Message'
@@ -61,10 +41,7 @@ class CheckCommand extends Command
         ]);
     }
 
-    /**
-     * Display LogViewer messages.
-     */
-    private function displayMessages()
+    private function displayMessages(): void
     {
         $messages = $this->getChecker()->messages();
 
@@ -74,7 +51,7 @@ class CheckCommand extends Command
         }
 
         if ( ! empty($rows)) {
-            $this->frame('LogViewer messages');
+            $this->frame('File info');
             $this->table(['File', 'Message'], $rows);
         }
     }

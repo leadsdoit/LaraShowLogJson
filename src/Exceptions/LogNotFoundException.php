@@ -4,21 +4,9 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Exceptions;
 
-/**
- * Class     LogNotFoundException
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
 class LogNotFoundException extends LogViewerException
 {
-    /**
-     * Make the exception.
-     *
-     * @param  string  $date
-     *
-     * @return static
-     */
-    public static function make(string $date)
+    public static function make(string $date): static
     {
         return new static("Log not found in this date [{$date}]");
     }

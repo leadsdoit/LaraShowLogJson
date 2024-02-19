@@ -8,10 +8,6 @@ use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 interface LogChecker
 {
-    /* -----------------------------------------------------------------
-     |  Constants
-     | -----------------------------------------------------------------
-     */
 
     const HANDLER_DAILY    = 'daily';
     const HANDLER_SINGLE   = 'single';

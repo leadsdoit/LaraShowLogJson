@@ -86,6 +86,7 @@ interface Factory extends Patternable
     /**
      * Get logs statistics.
      */
+    /* @using */
     public function stats(): array;
 
     /**

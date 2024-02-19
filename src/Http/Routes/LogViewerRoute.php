@@ -9,9 +9,6 @@ use Ldi\Support\Routing\RouteRegistrar;
 
 class LogViewerRoute extends RouteRegistrar
 {
-    /**
-     * Map all routes.
-     */
     public function map(): void
     {
         $attributes = (array) config('log-viewer.route.attributes');
@@ -26,9 +23,6 @@ class LogViewerRoute extends RouteRegistrar
         });
     }
 
-    /**
-     * Map the logs routes.
-     */
     private function mapLogsRoutes(): void
     {
         $this->prefix('logs')->name('logs.')->group(function() {

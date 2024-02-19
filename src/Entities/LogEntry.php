@@ -9,78 +9,37 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\{Arrayable, Jsonable};
 use JsonSerializable;
 
-
 class LogEntry implements Arrayable, Jsonable, JsonSerializable
 {
-    /* -----------------------------------------------------------------
-     |  Properties
-     | -----------------------------------------------------------------
-     */
+    public string $env;
 
-    /** @var string */
-    public $env;
+    public string $level;
 
-    /** @var string */
-    public $level;
+    public Carbon $datetime;
 
-    /** @var \Carbon\Carbon */
-    public $datetime;
+    public string $header;
 
-    /** @var string */
-    public $header;
-
-    /** @var string */
-    public $stack;
+    public string $stack;
 
     /** @var array */
-    public $context = [];
+    public array $context = [];
 
-    /* -----------------------------------------------------------------
-     |  Constructor
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Construct the log entry instance.
-     *
-     * @param  string       $level
-     * @param  string       $header
-     * @param  string|null  $stack
-     */
-    public function __construct($level, $header, $stack = null)
+    public function __construct(string $level, string $header, ?string $stack = null)
     {
         $this->setLevel($level);
         $this->setHeader($header);
         $this->setStack($stack);
     }
 
-    /* -----------------------------------------------------------------
-     |  Getters & Setters
-     | -----------------------------------------------------------------
-     */
 
-    /**
-     * Set the entry level.
-     *
-     * @param  string  $level
-     *
-     * @return self
-     */
-    private function setLevel($level)
+    private function setLevel(string $level): self
     {
         $this->level = $level;
 
         return $this;
     }
 
-    /**
-     * Set the entry header.
-     *
-     * @param  string  $header
-     *
-     * @return self
-     */
-    private function setHeader($header)
+    private function setHeader(string $header): self
     {
         $this->setDatetime($this->extractDatetime($header));
 
@@ -91,138 +50,50 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
         return $this;
     }
 
-    /**
-     * Set the context.
-     *
-     * @param  array  $context
-     *
-     * @return $this
-     */
-    private function setContext(array $context)
+    private function setContext(array $context): self
     {
         $this->context = $context;
 
         return $this;
     }
 
-    /**
-     * Set entry environment.
-     *
-     * @param  string  $env
-     *
-     * @return self
-     */
-    private function setEnv($env)
+    private function setEnv(string $env): self
     {
         $this->env = head(explode('.', $env));
 
         return $this;
     }
 
-    /**
-     * Set the entry date time.
-     *
-     * @param  string  $datetime
-     *
-     * @return \Ldi\LogViewer\Entities\LogEntry
-     */
-    private function setDatetime($datetime)
+    private function setDatetime(string $datetime): self
     {
         $this->datetime = Carbon::createFromFormat('Y-m-d H:i:s', $datetime);
 
         return $this;
     }
 
-    /**
-     * Set the entry stack.
-     *
-     * @param  string  $stack
-     *
-     * @return self
-     */
-    private function setStack($stack)
+    private function setStack(string $stack): self
     {
         $this->stack = $stack;
 
         return $this;
     }
 
-    /**
-     * Get translated level name with icon.
-     *
-     * @return string
-     */
-    public function level()
-    {
-        return $this->icon()->toHtml() . ' LogEntry.php' .$this->name();
-    }
-
-    /**
-     * Get translated level name.
-     *
-     * @return string
-     */
-    public function name()
+    public function name(): string
     {
         return log_levels()->get($this->level);
     }
 
-    /**
-     * Get level icon.
-     *
-     * @return \Illuminate\Support\HtmlString
-     */
-    public function icon()
-    {
-//        return log_styler()->icon($this->level);
-    }
-
-    /**
-     * Get the entry stack.
-     *
-     * @return string
-     */
-    public function stack()
-    {
-        return trim(htmlentities($this->stack));
-    }
-
-    /**
-     * Get the entry context as json pretty print.
-     */
     public function context(int $options = JSON_PRETTY_PRINT): string
     {
         return json_encode($this->context, $options);
     }
 
-    /* -----------------------------------------------------------------
-     |  Check Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Check if same log level.
-     *
-     * @param  string  $level
-     *
-     * @return bool
-     */
-    public function isSameLevel($level)
+    public function isSameLevel(string $level): bool
     {
         return $this->level === $level;
     }
 
-    /* -----------------------------------------------------------------
-     |  Convert Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Get the log entry as an array.
-     *
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'level'    => $this->level,
@@ -232,47 +103,22 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
         ];
     }
 
-    /**
-     * Convert the log entry to its JSON representation.
-     *
-     * @param  int  $options
-     *
-     * @return string
-     */
-    public function toJson($options = 0)
+    public function toJson($options = 0): string
     {
         return json_encode($this->toArray(), $options);
     }
 
-    /**
-     * Serialize the log entry object to json data.
-     */
     public function jsonSerialize(): array
     {
         return $this->toArray();
     }
 
-    /* -----------------------------------------------------------------
-     |  Check Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Check if the entry has a stack.
-     *
-     * @return bool
-     */
-    public function hasStack()
+    public function hasStack(): bool
     {
         return $this->stack !== "\n";
     }
 
-    /**
-     * Check if the entry has a context.
-     *
-     * @return bool
-     */
-    public function hasContext()
+    public function hasContext(): bool
     {
         return ! empty($this->context);
     }
@@ -282,14 +128,7 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
      | -----------------------------------------------------------------
      */
 
-    /**
-     * Clean the entry header.
-     *
-     * @param  string  $header
-     *
-     * @return string
-     */
-    private function cleanHeader($header)
+    private function cleanHeader(string $header): string
     {
         // REMOVE THE DATE
         $header = preg_replace('/\['.LogParser::REGEX_DATETIME_PATTERN.'\][ ]/', '', $header);
@@ -310,14 +149,7 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
         return $header;
     }
 
-    /**
-     * Extract datetime from the header.
-     *
-     * @param  string  $header
-     *
-     * @return string
-     */
-    private function extractDatetime($header)
+    private function extractDatetime(string $header): string
     {
         return preg_replace('/^\[('.LogParser::REGEX_DATETIME_PATTERN.')\].*/', '$1', $header);
     }

@@ -12,51 +12,17 @@ use ReflectionClass;
 
 class LogLevels implements LogLevelsContract
 {
-    /**
-     * The log levels.
-     *
-     * @var array
-     */
     protected static array $levels = [];
-
-    /**
-     * The Translator instance.
-     *
-     * @var \Illuminate\Translation\Translator
-     */
     private Translator $translator;
 
-    /**
-     * The selected locale.
-     *
-     * @var string
-     */
     private string $locale;
 
-    /**
-     * LogLevels constructor.
-     *
-     * @param  \Illuminate\Translation\Translator  $translator
-     * @param  string                              $locale
-     */
     public function __construct(Translator $translator, string $locale)
     {
         $this->setTranslator($translator);
         $this->setLocale($locale);
     }
 
-    /* -----------------------------------------------------------------
-     |  Getters & Setters
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Set the Translator instance.
-     *
-     * @param  \Illuminate\Translation\Translator  $translator
-     *
-     * @return $this
-     */
     public function setTranslator(Translator $translator): self
     {
         $this->translator = $translator;
@@ -64,25 +30,12 @@ class LogLevels implements LogLevelsContract
         return $this;
     }
 
-    /**
-     * Get the selected locale.
-     *
-     * @return string
-     */
     public function getLocale(): string
     {
         return $this->locale === 'auto'
             ? $this->translator->getLocale()
             : $this->locale;
     }
-
-    /**
-     * Set the selected locale.
-     *
-     * @param  string  $locale
-     *
-     * @return $this
-     */
     public function setLocale(string $locale): self
     {
         $this->locale = is_null($locale) ? 'auto' : $locale;
@@ -90,25 +43,11 @@ class LogLevels implements LogLevelsContract
         return $this;
     }
 
-    /**
-     * Get the log levels.
-     *
-     * @param  bool  $flip
-     *
-     * @return array
-     */
     public function lists(bool $flip = false): array
     {
         return static::all($flip);
     }
 
-    /**
-     * Get translated levels.
-     *
-     * @param  string|null  $locale
-     *
-     * @return array
-     */
     public function names(?string $locale = null): array
     {
         $levels = static::all(true);
@@ -120,13 +59,6 @@ class LogLevels implements LogLevelsContract
         return $levels;
     }
 
-    /**
-     * Get PSR log levels.
-     *
-     * @param  bool  $flip
-     *
-     * @return array
-     */
     public static function all(bool $flip = false): array
     {
         if (empty(static::$levels)) {
@@ -136,14 +68,6 @@ class LogLevels implements LogLevelsContract
         return $flip ? array_flip(static::$levels) : static::$levels;
     }
 
-    /**
-     * Get the translated level.
-     *
-     * @param  string       $key
-     * @param  string|null  $locale
-     *
-     * @return string
-     */
     public function get(string $key, ?string $locale = null): string
     {
         $translations = [

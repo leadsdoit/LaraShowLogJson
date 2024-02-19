@@ -8,13 +8,13 @@ class ClearCommand extends Command
 {
     protected $signature = 'log-viewer:clear';
 
-    protected $description = 'Clear all generated log files';
+    protected $description = 'Remove generated log files';
 
     public function handle(): int
     {
-        if ($this->confirm('This will delete all the log files, Do you wish to continue?')) {
+        if ($this->confirm('Remove all log files?')) {
             $this->logViewer->clear();
-            $this->info('Successfully cleared the logs!');
+            $this->info('Logs were successfully removed!');
         }
 
         return static::SUCCESS;

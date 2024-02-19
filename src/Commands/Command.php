@@ -18,5 +18,4 @@ abstract class Command extends BaseCommand
         $this->logViewer = $logViewer;
     }
 
-    protected function displayLogViewer() {}
 }

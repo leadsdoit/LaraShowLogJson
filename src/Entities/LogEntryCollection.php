@@ -11,19 +11,8 @@ use Illuminate\Support\LazyCollection;
 
 class LogEntryCollection extends LazyCollection
 {
-    /* -----------------------------------------------------------------
-     |  Main Methods
-     | -----------------------------------------------------------------
-     */
 
-    /**
-     * Load raw log entries.
-     *
-     * @param  string  $raw
-     *
-     * @return self
-     */
-    public static function load($raw)
+    public static function load(string $raw): self
     {
         return new static(function () use ($raw) {
             foreach (LogParser::parse($raw) as $entry) {
@@ -34,14 +23,7 @@ class LogEntryCollection extends LazyCollection
         });
     }
 
-    /**
-     * Paginate log entries.
-     *
-     * @param  int  $perPage
-     *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
-    public function paginate($perPage = 20)
+    public function paginate(int $perPage = 20): LengthAwarePaginator
     {
         $page = request()->get('page', 1);
         $path = request()->url();
@@ -62,19 +44,15 @@ class LogEntryCollection extends LazyCollection
      *
      * @return self
      */
-    public function filterByLevel($level)
+    public function filterByLevel(string $level): self
     {
         return $this->filter(function(LogEntry $entry) use ($level) {
             return $entry->isSameLevel($level);
         });
     }
 
-    /**
-     * Get log entries stats.
-     *
-     * @return array
-     */
-    public function stats()
+    /* @using */
+    public function stats(): array
     {
         $counters = $this->initStats();
 
@@ -86,14 +64,7 @@ class LogEntryCollection extends LazyCollection
         return $counters;
     }
 
-    /**
-     * Get the log entries navigation tree.
-     *
-     * @param  bool|false  $trans
-     *
-     * @return array
-     */
-    public function tree($trans = false)
+    public function tree(bool $trans = false): array
     {
         $tree = $this->stats();
 
@@ -107,17 +78,8 @@ class LogEntryCollection extends LazyCollection
         return $tree;
     }
 
-    /* -----------------------------------------------------------------
-     |  Other Methods
-     | -----------------------------------------------------------------
-     */
-
-    /**
-     * Init stats counters.
-     *
-     * @return array
-     */
-    private function initStats()
+    /* @using */
+    private function initStats(): array
     {
         $levels = array_merge_recursive(
             ['all'],
