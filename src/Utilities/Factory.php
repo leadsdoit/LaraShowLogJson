@@ -61,11 +61,7 @@ class Factory implements FactoryContract
         return $this->filesystem->getPattern();
     }
 
-    public function setPattern(
-        string $prefix    = FilesystemContract::PATTERN_PREFIX,
-        string $date      = FilesystemContract::PATTERN_DATE,
-        string $extension = FilesystemContract::PATTERN_EXTENSION
-    ) : self
+    public function setPattern(string $prefix, string $date, string $extension): self
     {
         $this->filesystem->setPattern($prefix, $date, $extension);
 

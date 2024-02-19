@@ -56,11 +56,8 @@ class LogViewer implements LogViewerContract
         return $this->factory->getPattern();
     }
 
-    public function setPattern(
-        string $prefix = FilesystemContract::PATTERN_PREFIX,
-        string $date = FilesystemContract::PATTERN_DATE,
-        string $extension = FilesystemContract::PATTERN_EXTENSION
-    ): self {
+    public function setPattern(string $prefix, string $date, string $extension): self
+    {
         $this->factory->setPattern($prefix, $date, $extension);
 
         return $this;

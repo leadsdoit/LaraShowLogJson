@@ -47,14 +47,13 @@ class Filesystem implements FilesystemContract
         return $this->prefixPattern.$this->datePattern.$this->extension;
     }
 
-    public function setPattern(
-       string $prefix    = self::PATTERN_PREFIX,
-       string $date      = self::PATTERN_DATE,
-       string $extension = self::PATTERN_EXTENSION
-    ): self {
-        $this->setPrefixPattern($prefix);
-        $this->setDatePattern($date);
-        $this->setExtension($extension);
+    public function setPattern(string $prefix, string $date, string $extension): self
+    {
+        $pattern = config('log-viewer.pattern');
+
+        $this->setPrefixPattern($prefix ?? $pattern['prefix']);
+        $this->setDatePattern($date ?? $pattern['date']);
+        $this->setExtension($extension ?? $pattern['extension']);
 
         return $this;
     }

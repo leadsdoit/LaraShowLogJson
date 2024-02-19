@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Contracts;
 
-use Ldi\LogViewer\Contracts\Utilities\Filesystem;
-
 interface Patternable
 {
     /**
@@ -24,9 +22,5 @@ interface Patternable
      *
      * @return self
      */
-    public function setPattern(
-        string $prefix    = Filesystem::PATTERN_PREFIX,
-        string $date      = Filesystem::PATTERN_DATE,
-        string $extension = Filesystem::PATTERN_EXTENSION
-    ): self;
+    public function setPattern(string $prefix, string $date, string $extension): self;
 }
