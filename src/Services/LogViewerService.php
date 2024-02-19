@@ -32,7 +32,7 @@ class LogViewerService
         return $rows;
     }
 
-    public function showLogsByDate(string $date, string $level, string $query): LengthAwarePaginator
+    public function showLogsByDate(string $date, string $level, ?string $query): LengthAwarePaginator
     {
         /* @var LogViewerContract $logViewer */
         $logViewer = resolve(LogViewerContract::class);
