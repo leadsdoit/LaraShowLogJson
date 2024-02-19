@@ -77,7 +77,6 @@ class LogCollection extends LazyCollection
         return $this->get($date)->entries($level);
     }
 
-    /* @using */
     public function stats(): array
     {
         $stats = [];

@@ -101,7 +101,6 @@ class LogViewer implements LogViewerContract
         return response()->download($path, $filename, $headers);
     }
 
-    /* @using */
     public function stats(): array
     {
         return $this->factory->stats();

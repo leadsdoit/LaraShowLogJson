@@ -107,7 +107,6 @@ class Factory implements FactoryContract
         return $this->log($date)->entries($level);
     }
 
-    /* @using */
     public function stats(): array
     {
         return $this->logs()->stats();

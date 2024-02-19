@@ -70,7 +70,6 @@ class Log implements Arrayable, Jsonable, JsonSerializable
         return $this->entries->filterByLevel($level);
     }
 
-    /* @using */
     public function stats(): array
     {
         return $this->entries->stats();

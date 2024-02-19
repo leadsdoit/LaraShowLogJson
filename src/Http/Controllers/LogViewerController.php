@@ -4,78 +4,76 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
 use Ldi\LogViewer\Http\Trait\APIResponse;
+use Ldi\LogViewer\Services\LogViewerService;
 use Ldi\LogViewer\Entities\{LogEntry, LogEntryCollection};
-use Ldi\LogViewer\Exceptions\LogNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\{Arr, Collection, Str};
-/**
- * Class     LogViewerController
- *
- * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
- */
+use Illuminate\Support\{Collection, Str};
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 class LogViewerController extends Controller
 {
     use APIResponse;
 
-    /**
-     * The log viewer instance
-     *
-     * @var \Ldi\LogViewer\Contracts\LogViewer
-     */
-    protected $logViewer;
-
-    /** @var int */
-    protected $perPage = 30;
-
-    /**
-     * Show the dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request, LogViewerContract $logViewer)
+    public function index(
+        Request $request,
+        LogViewerService $logViewerService,
+//        LogViewerContract $logViewer
+    ): JsonResponse
     {
-        $stats   = $logViewer->stats();
-        $rows    = $this->paginate($stats, $request);
+        $page = $request->get('page', 1);
+        $path = $request->url();
+        $rows = $logViewerService->getPaginatedLogs($page, $path);
+//        $perPage = config('log-viewer.per-page', 30);
+//
+//        $stats   = $logViewer->stats();
+//
+//        $data = new Collection($stats);
+//        $rows = new LengthAwarePaginator(
+//            $data->forPage($page, $perPage),
+//            $data->count(),
+//            $perPage,
+//            $page,
+//            compact('path')
+//        );
         return $this->sendResponse($rows);
     }
 
-    /**
-     * Show the log.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string                    $date
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show(Request $request, $date, LogViewerContract $logViewer)
+    public function show(
+        Request $request,
+        string $date,
+        LogViewerService $logViewerService,
+//        LogViewerContract $logViewer
+    ): JsonResponse
     {
         $level   = $request->get('level') ?? 'all';
         $query   = $request->get('query');
-        $entries = $logViewer->entries($date, $level);
-
-        if (!empty($query)) {
-            $needles = array_map(function ($needle) {
-                return Str::lower($needle);
-            }, array_filter(explode(' ', $query)));
-
-            $entries = $entries
-                ->unless(empty($needles), function (LogEntryCollection $entries) use ($needles) {
-                    return $entries->filter(function (LogEntry $entry) use ($needles) {
-                        foreach ([$entry->header, $entry->stack, $entry->context()] as $subject) {
-                            if (Str::containsAll(Str::lower($subject), $needles))
-                                return true;
-                        }
-
-                        return false;
-                    });
-                });
-        }
-
-        $entries = $entries->paginate(config('log-viewer.per-page', $this->perPage));
+        $entries = $logViewerService->showLogsByDate($date, $level, $query);
+//        $entries = $logViewer->entries($date, $level);
+//
+//        if (!empty($query)) {
+//            $needles = array_map(function ($needle) {
+//                return Str::lower($needle);
+//            }, array_filter(explode(' ', $query)));
+//
+//            $entries = $entries
+//                ->unless(empty($needles), function (LogEntryCollection $entries) use ($needles) {
+//                    return $entries->filter(function (LogEntry $entry) use ($needles) {
+//                        foreach ([$entry->header, $entry->stack, $entry->context()] as $subject) {
+//                            if (Str::containsAll(Str::lower($subject), $needles))
+//                                return true;
+//                        }
+//
+//                        return false;
+//                    });
+//                });
+//        }
+//
+//        $entries = $entries->paginate(config('log-viewer.per-page'));
 
         return $this->sendResponse([
             'entries' => $entries
@@ -83,7 +81,7 @@ class LogViewerController extends Controller
 
     }
 
-    public function getLevels(LogViewerContract $logViewer)
+    public function getLevels(LogViewerContract $logViewer): JsonResponse
     {
         $levels  = $logViewer->levelsNames();
 
@@ -92,26 +90,12 @@ class LogViewerController extends Controller
         ]);
     }
 
-    /**
-     * Download the log
-     *
-     * @param  string  $date
-     *
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function download(string $date, LogViewerContract $logViewer)
+    public function download(string $date, LogViewerContract $logViewer): BinaryFileResponse
     {
         return $logViewer->download($date);
     }
 
-    /**
-     * Delete a log.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function delete(Request $request, LogViewerContract $logViewer)
+    public function delete(Request $request, LogViewerContract $logViewer): JsonResponse
     {
         abort_unless($request->ajax(), 405, 'Method Not Allowed');
 
@@ -120,28 +104,5 @@ class LogViewerController extends Controller
         return $this->sendResponse([
             'result' => $logViewer->delete($date) ? 'success' : 'error'
         ]);
-    }
-
-    /**
-     * Paginate logs.
-     *
-     * @param  array                     $data
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
-     */
-    protected function paginate(array $data, Request $request)
-    {
-        $data = new Collection($data);
-        $page = $request->get('page', 1);
-        $path = $request->url();
-
-        return new LengthAwarePaginator(
-            $data->forPage($page, config('log-viewer.per-page', $this->perPage)),
-            $data->count(),
-            config('log-viewer.per-page', $this->perPage),
-            $page,
-            compact('path')
-        );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Entities;
 
+use Ldi\LogViewer\Contracts\LogViewer;
 use Ldi\LogViewer\Helpers\LogParser;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\LazyCollection;
@@ -51,7 +52,6 @@ class LogEntryCollection extends LazyCollection
         });
     }
 
-    /* @using */
     public function stats(): array
     {
         $counters = $this->initStats();
@@ -78,12 +78,14 @@ class LogEntryCollection extends LazyCollection
         return $tree;
     }
 
-    /* @using */
     private function initStats(): array
     {
+        /* @var LogViewer $logViewer */
+        $logViewer = resolve(LogViewer::class);
+
         $levels = array_merge_recursive(
             ['all'],
-            array_keys(log_viewer()->levels(true))
+            array_keys($logViewer->levels(true))
         );
 
         return array_map(function () {

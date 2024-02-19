@@ -94,7 +94,6 @@ interface LogViewer extends Patternable
      * Get logs statistics.
      * @return array
      */
-    /* @using */
     public function stats(): array;
 
     /**
