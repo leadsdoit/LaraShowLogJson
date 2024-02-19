@@ -27,7 +27,9 @@ class Filesystem implements FilesystemContract
     {
         $this->filesystem  = $files;
         $this->setPath($storagePath);
-        $this->setPattern();
+
+        $pattern = config('log-viewer.pattern');
+        $this->setPattern($pattern['prefix'], $pattern['date'], $pattern['extension']);
     }
 
     public function getInstance(): IlluminateFilesystem
@@ -49,11 +51,9 @@ class Filesystem implements FilesystemContract
 
     public function setPattern(string $prefix, string $date, string $extension): self
     {
-        $pattern = config('log-viewer.pattern');
-
-        $this->setPrefixPattern($prefix ?? $pattern['prefix']);
-        $this->setDatePattern($date ?? $pattern['date']);
-        $this->setExtension($extension ?? $pattern['extension']);
+        $this->setPrefixPattern($prefix);
+        $this->setDatePattern($date);
+        $this->setExtension($extension);
 
         return $this;
     }
