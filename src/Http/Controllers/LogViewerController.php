@@ -8,11 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
 use Ldi\LogViewer\Http\Trait\APIResponse;
 use Ldi\LogViewer\Services\LogViewerService;
-use Ldi\LogViewer\Entities\{LogEntry, LogEntryCollection};
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\{Collection, Str};
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class LogViewerController extends Controller
@@ -56,9 +53,7 @@ class LogViewerController extends Controller
 
     public function delete(Request $request, LogViewerContract $logViewer): JsonResponse
     {
-        abort_unless($request->ajax(), 405, 'Method Not Allowed');
-
-        $date = $request->input('date');
+        $date = $request->get('date');
 
         return $this->sendResponse([
             'result' => $logViewer->delete($date) ? 'success' : 'error'
