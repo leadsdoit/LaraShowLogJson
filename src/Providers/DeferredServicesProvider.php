@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Providers;
 
+use Arcanedev\Support\Providers\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
 use Ldi\LogViewer\Contracts\Utilities\Factory as FactoryContract;
@@ -12,7 +13,6 @@ use Ldi\LogViewer\Contracts\Utilities\LogChecker as LogCheckerContract;
 use Ldi\LogViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
 use Ldi\LogViewer\LogViewer;
 use Ldi\LogViewer\Utilities;
-use Ldi\Support\Providers\ServiceProvider;
 
 class DeferredServicesProvider extends ServiceProvider implements DeferrableProvider
 {
