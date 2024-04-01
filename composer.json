@@ -11,8 +11,8 @@
         "php": "^8.0",
         "ext-json": "*",
         "psr/log": "^1.0|^2.0|^3.0",
-        "ldi/support": "^2.0.1",
-        "laravel/framework": "^10.25"
+        "laravel/framework": "^10.25",
+        "arcanedev/support": "*"
     },
     "require-dev": {
         "mockery/mockery": "^1.4.4",
@@ -28,12 +28,6 @@
             ]
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/susdcjudgement/ldi-support"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
