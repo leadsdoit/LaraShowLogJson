@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Commands;
 
+use Arcanedev\Support\Console\Command as BaseCommand;
 use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
-use Ldi\Support\Console\Command as BaseCommand;
 
 abstract class Command extends BaseCommand
 {

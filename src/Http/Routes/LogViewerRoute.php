@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer\Http\Routes;
 
+use Arcanedev\Support\Routing\RouteRegistrar;
 use Ldi\LogViewer\Http\Controllers\LogViewerController;
-use Ldi\Support\Routing\RouteRegistrar;
 
 class LogViewerRoute extends RouteRegistrar
 {

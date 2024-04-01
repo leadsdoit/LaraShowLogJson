@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ldi\LogViewer\Providers;
 
 use Ldi\LogViewer\Http\Routes\LogViewerRoute;
-use Ldi\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Arcanedev\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 
 class RouteServiceProvider extends ServiceProvider
