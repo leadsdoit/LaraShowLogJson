@@ -52,7 +52,6 @@ class LogViewerServiceProvider extends PackageServiceProvider
         $this->loadTranslations();
         if ($this->app->runningInConsole()) {
             $this->publishConfig();
-            $this->publishTranslations();
         }
     }
 }
