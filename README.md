@@ -11,10 +11,6 @@ A Laravel Package for Log File Parsing.
         {
             "type": "vcs",
             "url": "https://github.com/..../ldi-log"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/..../ldi-support"
         }
     ],
 ```
