@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Ldi\LogViewer;
 
-use Ldi\Support\Providers\PackageServiceProvider;
+
+use Arcanedev\Support\Providers\PackageServiceProvider;
 
 class LogViewerServiceProvider extends PackageServiceProvider
 {
