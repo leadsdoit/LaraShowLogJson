@@ -18,9 +18,10 @@ class LogViewerController extends Controller
 
     public function index(Request $request, LogViewerService $logViewerService): JsonResponse
     {
-        $page = $request->get('page', 1);
+        $page = (int)$request->get('page', 1);
+
         $path = $request->url();
-        $rows = $logViewerService->getPaginatedLogs($page, $path);
+        $rows = $logViewerService->getPaginatedLogs((int)$page, $path);
 
         return $this->sendResponse($rows);
     }
@@ -29,13 +30,14 @@ class LogViewerController extends Controller
     {
         $level   = $request->get('level') ?? 'all';
         $query   = $request->get('query');
-        $entries = $logViewerService->showLogsByDate($date, $level, $query);
 
-        return $this->sendResponse([
-            'entries' => $entries
-        ]);
+        $log = $logViewerService->getLogInfoByDate($date);
+        $result = $logViewerService->paginateLogInfo($log, $level, $query);
+
+        return $this->sendResponse($result);
 
     }
+
 
     public function getLevels(LogViewerContract $logViewer): JsonResponse
     {

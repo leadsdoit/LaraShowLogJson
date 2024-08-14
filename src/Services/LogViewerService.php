@@ -6,6 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
+use Ldi\LogViewer\Entities\Log;
 use Ldi\LogViewer\Entities\LogEntry;
 use Ldi\LogViewer\Entities\LogEntryCollection;
 
@@ -32,12 +33,16 @@ class LogViewerService
         return $rows;
     }
 
-    public function showLogsByDate(string $date, string $level, ?string $query): LengthAwarePaginator
+    public function getLogInfoByDate(string $date): mixed
     {
-        /* @var LogViewerContract $logViewer */
         $logViewer = resolve(LogViewerContract::class);
 
-        $entries = $logViewer->entries($date, $level);
+        return $logViewer->get($date);
+    }
+
+    public function showLogsByDate(Log $log, string $level, ?string $query): LengthAwarePaginator
+    {
+        $entries = $log->entries($level);
 
         if (!empty($query)) {
             $needles = array_map(function ($needle) {
@@ -56,10 +61,27 @@ class LogViewerService
                 });
         }
 
-        $entries = $entries->paginate(config('log-viewer.per-page'));
+        return $entries->paginate(config('log-viewer.per-page'));
 
-        return $entries;
+    }
 
+
+    public function paginateLogInfo(?Log $log, string $level, ?string $query): array
+    {
+        if (!empty($log)) {
+            $entries = $this->showLogsByDate($log, $level, $query);
+
+            $result = [
+                'created_at' => $log->createdAt()->format('Y-m-d H:i:s') ?? null,
+                'updated_at' => $log->updatedAt()->format('Y-m-d H:i:s') ?? null,
+                'size' => $log->size() ?? null,
+            ];
+
+            $result = array_merge($result, $log->toArray());
+            $result['entries'] = $entries;
+        }
+
+        return $result ?? [];
     }
 
 }
