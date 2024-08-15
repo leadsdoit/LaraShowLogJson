@@ -96,6 +96,7 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
     public function toArray(): array
     {
         return [
+            'env' => $this->env,
             'level'    => $this->level,
             'datetime' => $this->datetime->format('Y-m-d H:i:s'),
             'header'   => $this->header,
