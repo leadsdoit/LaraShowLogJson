@@ -32,6 +32,7 @@ class LogViewerController extends Controller
         $query   = $request->get('query');
 
         $log = $logViewerService->getLogInfoByDate($date);
+        $log->level_statistics = $logViewerService->getLevelStats($date);
         $result = $logViewerService->paginateLogInfo($log, $level, $query);
 
         return $this->sendResponse($result);

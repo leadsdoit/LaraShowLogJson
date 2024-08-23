@@ -40,6 +40,15 @@ class LogViewerService
         return $logViewer->get($date);
     }
 
+    public function getLevelStats(string $date): ?array
+    {
+        $logViewer = resolve(LogViewerContract::class);
+
+        $allStats = $logViewer->stats();
+
+        return $allStats[$date] ?? null;
+    }
+
     public function showLogsByDate(Log $log, string $level, ?string $query): LengthAwarePaginator
     {
         $entries = $log->entries($level);
@@ -72,6 +81,7 @@ class LogViewerService
             $entries = $this->showLogsByDate($log, $level, $query);
 
             $result = [
+                'level_statistics' => $log->level_statistics ?? [],
                 'created_at' => $log->createdAt()->format('Y-m-d H:i:s') ?? null,
                 'updated_at' => $log->updatedAt()->format('Y-m-d H:i:s') ?? null,
                 'size' => $log->size() ?? null,
