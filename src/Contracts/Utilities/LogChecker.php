@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Contracts\Utilities;
+namespace Ldi\LogSpaViewer\Contracts\Utilities;
 
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 
@@ -26,7 +26,7 @@ interface LogChecker
     /**
      * Set the Filesystem instance.
      *
-     * @param  \Ldi\LogViewer\Contracts\Utilities\Filesystem  $filesystem
+     * @param  \Ldi\LogSpaViewer\Contracts\Utilities\Filesystem  $filesystem
      *
      * @return self
      */

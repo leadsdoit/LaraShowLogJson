@@ -2,28 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Commands;
+namespace Ldi\LogSpaViewer\Commands;
 
-use Ldi\LogViewer\LogViewerServiceProvider;
+use Ldi\LogSpaViewer\LogSpaViewerServiceProvider;
 use Symfony\Component\Console\Input\InputOption;
+use Illuminate\Console\Command;
 
 class PublishCommand extends Command
 {
-    protected $name = 'log-viewer:publish';
+    protected $name = 'log-spa-viewer:publish';
 
     protected $description = 'Publish all LogViewer resources and config files';
 
-    protected $signature = 'log-viewer:publish
+    protected $signature = 'log-spa-viewer:publish
             {--tag= : Tag(s) having assets needed to be published.}
             {--force : Overwrite any existing files.}';
 
     public function handle(): int
     {
         $args = [
-            '--provider' => LogViewerServiceProvider::class,
+            '--provider' => LogSpaViewerServiceProvider::class,
         ];
 
-        if ((bool) $this->option('force')) {
+        if ($this->option('force')) {
             $args['--force'] = true;
         }
 

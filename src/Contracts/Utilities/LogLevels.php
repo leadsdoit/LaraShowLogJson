@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Contracts\Utilities;
+namespace Ldi\LogSpaViewer\Contracts\Utilities;
 
 use Illuminate\Translation\Translator;
 

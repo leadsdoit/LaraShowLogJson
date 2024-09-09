@@ -1,33 +1,58 @@
 {
-    "name": "ldi/log-viewer",
+    "name": "leadsdoit/log-spa-viewer",
     "description": "Provides data of the log files in json format",
-    "type": "library",
-    "autoload": {
-        "psr-4": {
-            "Ldi\\LogViewer\\": "src/"
+    "keywords": [
+        "ldi",
+        "laravel",
+        "log",
+        "log spa viewer",
+        "log-spa-viewer",
+        "log json",
+        "log json view"
+    ],
+    "homepage": "https://leadsdoit.com/",
+    "authors": [
+        {
+            "name": "susdcjudgement",
+            "email": "sus.a@dcjudgement.com",
+            "homepage": "https://github.com/susdcjudgement",
+            "role": "Developer"
+        },
+        {
+            "name": "YmNIK13",
+            "email": "valery.stavitsky@gmail.com",
+            "homepage": "https://github.com/YmNIK13",
+            "role": "TeamLead"
         }
-    },
+    ],
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-json": "*",
         "psr/log": "^1.0|^2.0|^3.0",
-        "laravel/framework": "^10.25",
-        "arcanedev/support": "*"
+        "laravel/framework": "^10.0 || ^11.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.4.4",
         "orchestra/testbench-core": "^7.0",
         "phpunit/phpunit": "^9.5.10"
     },
-    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Ldi\\LogSpaViewer\\": "src/"
+        },
+        "files": [
+            "helpers.php"
+        ]
+    },
     "extra": {
         "laravel": {
             "providers": [
-                "Ldi\\LogViewer\\LogViewerServiceProvider",
-                "Ldi\\LogViewer\\Providers\\DeferredServicesProvider"
+                "Ldi\\LogSpaViewer\\LogSpaViewerServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

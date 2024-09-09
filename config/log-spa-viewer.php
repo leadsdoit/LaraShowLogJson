@@ -15,8 +15,8 @@ return [
     'route'         => [
         'enabled'    => true,
         'attributes' => [
-            'prefix'     => 'log-viewer',
-            'middleware' => env('LDI_LOGVIEWER_MIDDLEWARE') ? explode(',', env('LDI_LOGVIEWER_MIDDLEWARE')) : null,
+            'prefix'     => 'log-viewer/logs',
+            'middleware' => env('LDI_LOGSPAVIEWER_MIDDLEWARE') ? explode(',', env('LDI_LOGSPAVIEWER_MIDDLEWARE')) : null,
         ],
     ],
 

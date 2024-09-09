@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Contracts\Utilities;
+namespace Ldi\LogSpaViewer\Contracts\Utilities;
 
-use Ldi\LogViewer\Contracts\Patternable;
-use Ldi\LogViewer\Entities\LogCollection;
-use Ldi\LogViewer\Entities\LogEntryCollection;
-use Ldi\LogViewer\Entities\Log;
+use Ldi\LogSpaViewer\Contracts\Patternable;
+use Ldi\LogSpaViewer\Entities\LogCollection;
+use Ldi\LogSpaViewer\Entities\LogEntryCollection;
+use Ldi\LogSpaViewer\Entities\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface Factory extends Patternable

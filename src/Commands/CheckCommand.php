@@ -2,23 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Commands;
+namespace Ldi\LogSpaViewer\Commands;
 
-use Ldi\LogViewer\Contracts\Utilities\LogChecker as LogCheckerContract;
-use Ldi\LogViewer\Utilities\LogChecker;
+use Ldi\LogSpaViewer\Contracts\Utilities\LogChecker as LogCheckerContract;
+use Ldi\LogSpaViewer\Utilities\LogChecker;
+use Illuminate\Console\Command;
 
 class CheckCommand extends Command
 {
-    protected $name = 'log-viewer:check';
+    protected $name = 'log-spa-viewer:check';
 
     protected $description = 'Check package requirements.';
 
-    protected $signature = 'log-viewer:check';
-
-    protected function getChecker(): LogChecker
-    {
-        return $this->laravel[LogCheckerContract::class];
-    }
+    protected $signature = 'log-spa-viewer:check';
 
     public function handle(): int
     {
@@ -26,6 +22,11 @@ class CheckCommand extends Command
         $this->displayMessages();
 
         return static::SUCCESS;
+    }
+
+    private function getChecker(): LogChecker
+    {
+        return $this->laravel[LogCheckerContract::class];
     }
 
     private function displayRequirements(): void
@@ -54,5 +55,14 @@ class CheckCommand extends Command
             $this->frame('File info');
             $this->table(['File', 'Message'], $rows);
         }
+    }
+
+
+    private function frame(string $text): void
+    {
+        $line   = '+'.str_repeat('-', strlen($text) + 4).'+';
+        $this->info($line);
+        $this->info("|  $text  |");
+        $this->info($line);
     }
 }

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Utilities;
+namespace Ldi\LogSpaViewer\Utilities;
 
-use Ldi\LogViewer\Contracts\Utilities\Factory as FactoryContract;
-use Ldi\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
-use Ldi\LogViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
-use Ldi\LogViewer\Entities\LogCollection;
-use Ldi\LogViewer\Entities\Log;
-use Ldi\LogViewer\Entities\LogEntryCollection;
-use Ldi\LogViewer\Exceptions\LogNotFoundException;
+use Ldi\LogSpaViewer\Contracts\Utilities\Factory as FactoryContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\Filesystem as FilesystemContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
+use Ldi\LogSpaViewer\Entities\LogCollection;
+use Ldi\LogSpaViewer\Entities\Log;
+use Ldi\LogSpaViewer\Entities\LogEntryCollection;
+use Ldi\LogSpaViewer\Exceptions\LogNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Factory implements FactoryContract

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Utilities;
+namespace Ldi\LogSpaViewer\Utilities;
 
-use Ldi\LogViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
 use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
 use Psr\Log\LogLevel;

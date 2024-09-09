@@ -1,51 +1,42 @@
-# About
+# Log SPA Viewer
 
-A Laravel Package for Log File Parsing.
+A Laravel Package for Log File Parsing for SPA.
+
+**Inspired by [ARCANEDEV/LogViewer](https://github.com/ARCANEDEV/LogViewer)**
+
 
 ## Installation
 
-1. Add GitLab/GitHub repository links in composer.json file.
+You can install this package via Composer by running this command:
 
-```php
-  "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/..../ldi-log"
-        }
-    ],
+```shell
+    composer require ldi/log-viewer
 ```
 
-2. You can install this package via Composer by running this command:
-
-```php
-    composer require ldi/log-viewer:{x.x} 
-```
-
-where x.x is the last version of package compatible with your laravel's version..
 
 ## Commands
 1. To publish the config and translations files, run this command:
 
-```php
-    php artisan log-viewer:publish
+```shell
+    php artisan log-spa-viewer:publish
 ```
 
 2. To force publishing
 
-```php
-    php artisan log-viewer:publish --force
+```shell
+    php artisan log-spa-viewer:publish --force
 ```
 
 3. Publishing the config only
 
-```
-    php artisan log-viewer:publish --tag=config
+```shell
+    php artisan log-spa-viewer:publish --tag=config
 ```
 
 4. Application requirements & log files check
 
-```
-    php artisan log-viewer:check
+```shell
+    php artisan log-spa-viewer:check
 ```
 
 # Configuration 

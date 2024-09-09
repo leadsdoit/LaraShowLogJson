@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Contracts;
+namespace Ldi\LogSpaViewer\Contracts;
 
-use Ldi\LogViewer\Entities\Log;
-use Ldi\LogViewer\Entities\LogEntryCollection;
+use Ldi\LogSpaViewer\Entities\Log;
+use Ldi\LogSpaViewer\Entities\LogEntryCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -47,7 +47,7 @@ interface LogViewer extends Patternable
     /**
      * Get all logs.
      *
-     * @return \Ldi\LogViewer\Entities\LogCollection|\Ldi\LogViewer\Entities\Log[]
+     * @return \Ldi\LogSpaViewer\Entities\LogCollection|\Ldi\LogSpaViewer\Entities\Log[]
      */
     public function all();
 
@@ -65,7 +65,7 @@ interface LogViewer extends Patternable
      *
      * @param  string  $date
      *
-     * @return \Ldi\LogViewer\Entities\Log
+     * @return \Ldi\LogSpaViewer\Entities\Log
      */
     public function get(string $date): Log;
 
@@ -75,7 +75,7 @@ interface LogViewer extends Patternable
      * @param  string  $date
      * @param  string  $level
      *
-     * @return \Ldi\LogViewer\Entities\LogEntryCollection
+     * @return \Ldi\LogSpaViewer\Entities\LogEntryCollection
      */
     public function entries(string $date, string $level = 'all'): LogEntryCollection;
 
@@ -103,7 +103,7 @@ interface LogViewer extends Patternable
      *
      * @return bool
      *
-     * @throws \Ldi\LogViewer\Exceptions\FilesystemException
+     * @throws \Ldi\LogSpaViewer\Exceptions\FilesystemException
      */
     public function delete(string $date): bool;
 

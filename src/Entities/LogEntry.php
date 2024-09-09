@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Entities;
+namespace Ldi\LogSpaViewer\Entities;
 
-use Ldi\LogViewer\Helpers\LogParser;
+use Ldi\LogSpaViewer\Helpers\LogParser;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\{Arrayable, Jsonable};
 use JsonSerializable;

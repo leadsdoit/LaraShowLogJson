@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Contracts\Utilities;
+namespace Ldi\LogSpaViewer\Contracts\Utilities;
 
-use Ldi\LogViewer\Contracts\Patternable;
+use Ldi\LogSpaViewer\Contracts\Patternable;
 
 interface Filesystem extends Patternable
 {
@@ -85,7 +85,7 @@ interface Filesystem extends Patternable
      *
      * @return string
      *
-     * @throws \Ldi\LogViewer\Exceptions\FilesystemException
+     * @throws \Ldi\LogSpaViewer\Exceptions\FilesystemException
      */
     public function read(string $date): string;
 
@@ -96,7 +96,7 @@ interface Filesystem extends Patternable
      *
      * @return bool
      *
-     * @throws \Ldi\LogViewer\Exceptions\FilesystemException
+     * @throws \Ldi\LogSpaViewer\Exceptions\FilesystemException
      */
     public function delete(string $date): bool;
 

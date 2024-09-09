@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Entities;
+namespace Ldi\LogSpaViewer\Entities;
 
-use Ldi\LogViewer\Contracts\LogViewer;
-use Ldi\LogViewer\Helpers\LogParser;
+use Ldi\LogSpaViewer\Contracts\LogViewer;
+use Ldi\LogSpaViewer\Helpers\LogParser;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\LazyCollection;
 

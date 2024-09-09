@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Helpers;
+namespace Ldi\LogSpaViewer\Helpers;
 
-use Ldi\LogViewer\Utilities\LogLevels;
+use Ldi\LogSpaViewer\Utilities\LogLevels;
 use Illuminate\Support\Str;
 
 class LogParser
@@ -15,12 +15,7 @@ class LogParser
     const REGEX_DATETIME_PATTERN = self::REGEX_DATE_PATTERN.' '.self::REGEX_TIME_PATTERN;
 
 
-    /**
-     * Parsed data.
-     *
-     * @var array
-     */
-    protected static $parsed = [];
+    protected static array $parsed = [];
 
     /* -----------------------------------------------------------------
      |  Main Methods
@@ -34,10 +29,10 @@ class LogParser
      *
      * @return array
      */
-    public static function parse($raw)
+    public static function parse(string $raw): array
     {
         static::$parsed          = [];
-        list($headings, $data) = static::parseRawData($raw);
+        [$headings, $data] = static::parseRawData($raw);
 
         // @codeCoverageIgnoreStart
         if ( ! is_array($headings)) {
@@ -80,7 +75,7 @@ class LogParser
      *
      * @return array
      */
-    private static function parseRawData($raw)
+    private static function parseRawData(string $raw): array
     {
         $pattern = '/\['.self::REGEX_DATETIME_PATTERN.'\].*/';
         preg_match_all($pattern, $raw, $headings);
@@ -99,9 +94,9 @@ class LogParser
      *
      * @param  array  $heading
      * @param  array  $data
-     * @param  int    $key
+     * @param  int  $key
      */
-    private static function populateEntries($heading, $data, $key)
+    private static function populateEntries(array $heading, array $data, int $key): void
     {
         foreach (LogLevels::all() as $level) {
             if (static::hasLogLevel($heading[$key], $level)) {
@@ -122,7 +117,7 @@ class LogParser
      *
      * @return bool
      */
-    private static function hasLogLevel($heading, $level)
+    private static function hasLogLevel(string $heading, string $level): bool
     {
         return Str::contains($heading, strtoupper(".{$level}:"));
     }

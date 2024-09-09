@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Entities;
+namespace Ldi\LogSpaViewer\Entities;
 
-use Ldi\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
-use Ldi\LogViewer\Exceptions\LogNotFoundException;
+use Ldi\LogSpaViewer\Contracts\Utilities\Filesystem as FilesystemContract;
+use Ldi\LogSpaViewer\Exceptions\LogNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\LazyCollection;
 
@@ -42,7 +42,7 @@ class LogCollection extends LazyCollection
      *
      * @return Log
      *
-     * @throws \Ldi\LogViewer\Exceptions\LogNotFoundException
+     * @throws \Ldi\LogSpaViewer\Exceptions\LogNotFoundException
      */
     public function get($key, $default = null): Log
     {

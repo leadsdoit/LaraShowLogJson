@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Exceptions;
+namespace Ldi\LogSpaViewer\Exceptions;
 
 class LogNotFoundException extends LogViewerException
 {

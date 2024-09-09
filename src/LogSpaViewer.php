@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer;
+namespace Ldi\LogSpaViewer;
 
-use Ldi\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
-use Ldi\LogViewer\Contracts\Utilities\Factory as FactoryContract;
-use Ldi\LogViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
-use Ldi\LogViewer\Contracts\LogViewer as LogViewerContract;
-use Ldi\LogViewer\Entities\LogCollection;
-use Ldi\LogViewer\Entities\LogEntryCollection;
-use Ldi\LogViewer\Utilities\Factory;
-use Ldi\LogViewer\Utilities\LogLevels;
-use Ldi\LogViewer\Entities\Log;
+use Ldi\LogSpaViewer\Contracts\Utilities\Filesystem as FilesystemContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\Factory as FactoryContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
+use Ldi\LogSpaViewer\Contracts\LogViewer as LogViewerContract;
+use Ldi\LogSpaViewer\Entities\LogCollection;
+use Ldi\LogSpaViewer\Entities\LogEntryCollection;
+use Ldi\LogSpaViewer\Utilities\Factory;
+use Ldi\LogSpaViewer\Utilities\LogLevels;
+use Ldi\LogSpaViewer\Entities\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class LogViewer implements LogViewerContract
+class LogSpaViewer implements LogViewerContract
 {
     protected Factory $factory;
 
@@ -88,8 +88,8 @@ class LogViewer implements LogViewerContract
         if (is_null($filename)) {
             $filename = sprintf(
                 "%s{$date}.%s",
-                config('log-viewer.download.prefix', 'laravel-'),
-                config('log-viewer.download.extension', 'log')
+                config('log-spa-viewer.download.prefix', 'laravel-'),
+                config('log-spa-viewer.download.extension', 'log')
             );
         }
 

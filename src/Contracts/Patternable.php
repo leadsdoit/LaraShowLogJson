@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Contracts;
+namespace Ldi\LogSpaViewer\Contracts;
 
 interface Patternable
 {

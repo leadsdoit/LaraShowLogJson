@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Providers;
+namespace Ldi\LogSpaViewer\Providers;
 
-use Ldi\LogViewer\Http\Routes\LogViewerRoute;
-use Arcanedev\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 
 
 class RouteServiceProvider extends ServiceProvider
@@ -18,14 +18,13 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->isEnabled()) {
-            $this->routes(function () {
-                static::mapRouteClasses([LogViewerRoute::class]);
-            });
+            $attributes = $this->config('attributes', []);
+            Route::group($attributes, fn() => $this->loadRoutesFrom(__DIR__.'/../routes.php'));
         }
     }
 
     private function config($key, $default = null)
     {
-        return $this->app['config']->get("log-viewer.route.$key", $default);
+        return $this->app['config']->get("log-spa-viewer.route.$key", $default);
     }
 }

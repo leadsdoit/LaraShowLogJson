@@ -1,26 +1,26 @@
 <?php
 
-use Ldi\LogViewer\Contracts;
+use Ldi\LogSpaViewer\Contracts;
 
-if ( ! function_exists('log_viewer')) {
+if ( ! function_exists('log_spa_viewer')) {
     /**
      * Get the LogViewer instance.
      *
-     * @return Ldi\LogViewer\Contracts\LogViewer
+     * @return Ldi\LogSpaViewer\Contracts\LogViewer
      */
-    function log_viewer()
+    function log_spa_viewer()
     {
         return app(Contracts\LogViewer::class);
     }
 }
 
-if ( ! function_exists('log_levels')) {
+if ( ! function_exists('log_spa_levels')) {
     /**
      * Get the LogLevels instance.
      *
-     * @return Ldi\LogViewer\Contracts\Utilities\LogLevels
+     * @return Ldi\LogSpaViewer\Contracts\Utilities\LogLevels
      */
-    function log_levels()
+    function log_spa_levels()
     {
         return app(Contracts\Utilities\LogLevels::class);
     }

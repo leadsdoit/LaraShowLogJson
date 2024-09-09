@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Utilities;
+namespace Ldi\LogSpaViewer\Utilities;
 
-use Ldi\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
-use Ldi\LogViewer\Contracts\Utilities\LogChecker as LogCheckerContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\Filesystem as FilesystemContract;
+use Ldi\LogSpaViewer\Contracts\Utilities\LogChecker as LogCheckerContract;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 
 class LogChecker implements LogCheckerContract

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Utilities;
+namespace Ldi\LogSpaViewer\Utilities;
 
-use Ldi\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
-use Ldi\LogViewer\Exceptions\FilesystemException;
-use Ldi\LogViewer\Helpers\LogParser;
+use Ldi\LogSpaViewer\Contracts\Utilities\Filesystem as FilesystemContract;
+use Ldi\LogSpaViewer\Exceptions\FilesystemException;
+use Ldi\LogSpaViewer\Helpers\LogParser;
 use Exception;
 use Illuminate\Filesystem\Filesystem as IlluminateFilesystem;
 
@@ -28,7 +28,7 @@ class Filesystem implements FilesystemContract
         $this->filesystem  = $files;
         $this->setPath($storagePath);
 
-        $pattern = config('log-viewer.pattern');
+        $pattern = config('log-spa-viewer.pattern');
         $this->setPattern($pattern['prefix'], $pattern['date'], $pattern['extension']);
     }
 

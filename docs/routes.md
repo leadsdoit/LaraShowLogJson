@@ -3,45 +3,47 @@
 
 # Routes
 
-* Get all logs
+## Get all logs
 
 ```
 Method - GET
-Endpoint - http(s)://{your-domain}/log-viewer/logs
+Endpoint - http(s)://{your-domain}/{prefix-from-config}
+Params - NONE
+```
+
+## Get log Levels
+
+```
+Method - GET
+Endpoint - http(s)://{your-domain}/{prefix-from-config}/levels
 Params - NONE
 ```
 
 
-* Show daily logs
+## Show daily logs
 
 ```
 Method - GET
-Endpoint - http(s)://{your-domain}/log-viewer/logs/{date}
-Params - NONE
+Endpoint - http(s)://{your-domain}/{prefix-from-config}/{date}
+Params:
+ - query - serach logs
+ - level - filter on level
 ```
 
-* Download daily logs
-
-```
-Method - GET
-Endpoint - http(s)://{your-domain}/log-viewer/logs/{date}/download
-Params - NONE
-```
-
-* Get log Levels
+## Download daily logs
 
 ```
 Method - GET
-Endpoint - http(s)://{your-domain}/log-viewer/logs/levels
+Endpoint - http(s)://{your-domain}/{prefix-from-config}/{date}/download
 Params - NONE
 ```
 
 
-* Delete a log
+## Delete a log
 
 ```
 Method - DELETE
-Endpoint - http(s)://{your-domain}/log-viewer/logs/delete
+Endpoint - http(s)://{your-domain}/{prefix-from-config}/delete
 Params - date (string)
 
 ```

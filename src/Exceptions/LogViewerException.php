@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Ldi\LogViewer\Exceptions;
+namespace Ldi\LogSpaViewer\Exceptions;
 
 class LogViewerException extends \Exception {}
