@@ -30,7 +30,7 @@ class LogEntryCollection extends LazyCollection
         $path = request()->url();
 
         return new LengthAwarePaginator(
-            $this->forPage($page, $perPage),
+            $this->forPage($page, $perPage)->values(),
             $this->count(),
             $perPage,
             $page,
@@ -62,20 +62,6 @@ class LogEntryCollection extends LazyCollection
         }
 
         return $counters;
-    }
-
-    public function tree(bool $trans = false): array
-    {
-        $tree = $this->stats();
-
-        array_walk($tree, function(&$count, $level) use ($trans) {
-            $count = [
-                'name'  => $trans ? log_levels()->get($level) : $level,
-                'count' => $count,
-            ];
-        });
-
-        return $tree;
     }
 
     private function initStats(): array

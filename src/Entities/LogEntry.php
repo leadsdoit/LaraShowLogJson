@@ -78,11 +78,6 @@ class LogEntry implements Arrayable, Jsonable, JsonSerializable
         return $this;
     }
 
-    public function name(): string
-    {
-        return log_levels()->get($this->level);
-    }
-
     public function context(int $options = JSON_PRETTY_PRINT): string
     {
         return json_encode($this->context, $options);
