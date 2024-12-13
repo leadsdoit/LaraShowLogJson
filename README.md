@@ -10,7 +10,7 @@ A Laravel Package for Log File Parsing for SPA.
 You can install this package via Composer by running this command:
 
 ```shell
-    composer require ldi/log-viewer
+    composer require leadsdoit/log-spa-viewer
 ```
 
 
